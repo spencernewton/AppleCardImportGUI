@@ -130,3 +130,5 @@ dmypy.json
 
 # Other
 .DS_Store
+.csv
+import.csv
