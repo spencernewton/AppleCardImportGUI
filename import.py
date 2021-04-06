@@ -3,11 +3,17 @@ import datetime
 import os
 import random
 import time
-import urllib.parse
+#import urllib.parse
+import urllib # makes it compatible with GUI
+import urlparse
+import json
 
-csv_name = input("Drag .csv file here and hit enter:")
-csv_name = csv_name.strip()
-print(csv_name)
+with open('changes.txt') as json_file:
+    data = json.load(json_file)
+    for p in data['changes']:
+        cookie = p['cookie']
+        token = p['token']
+        csv_name = p['csv_name']
 
 
 # csv_name = 'import.csv' # name of csv you you want import to mint [string.csv]
@@ -22,9 +28,9 @@ account = 'XXXXXXX' # grab from POST request form body in devtools
 tag1 = 'tagXXXXXX' # in form of tagXXXXXXX
 tag2 = 'tagXXXXXXX' # in form of tagXXXXXXX
 tag3 = 'tagXXXXXXX' # in form of tagXXXXXXX
-cookie = input("Copy and paste cookie here from POST request header in devtools:") # grab from POST request header in devtools
+#cookie = input("Copy and paste cookie here from POST request header in devtools:") # grab from POST request header in devtools
 referrer = 'https://mint.intuit.com/transaction.event' # grab from POST request header in devtools
-token = input("Copy and paste token here from POST request form body in devtools:") # grab from POST request form body in devtools
+#token = input("Copy and paste token here from POST request form body in devtools:") # grab from POST request form body in devtools
 
 csv_object = csv.reader(open(csv_name,'rU'))
 next(csv_object)
@@ -54,8 +60,8 @@ for row in csv_object:
 	dateoutput = date.replace("-", "%2F")
 
 
-	merchant = urllib.parse.quote(merchant)
-
+	#merchant = urllib.parse.quote(merchant)
+	merchant = urllib.pathname2url(merchant)
 
 	# Category ID Mapping Function 
 	def category_id_switch(import_category):
@@ -356,7 +362,8 @@ for row in csv_object:
 
 	# Set mint category name by looking up name in ID map 
 	category = catName
-	category = urllib.parse.quote(category)
+	#category = urllib.parse.quote(category)
+	category = urllib.pathname2url(category)
 
 	"""
 	#################################

@@ -132,3 +132,7 @@ dmypy.json
 .DS_Store
 .csv
 import.csv
+scratch.py
+testp.py
+setup.py
+changes.txt
