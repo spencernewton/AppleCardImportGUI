@@ -7,6 +7,10 @@ from toga.style.pack import COLUMN, ROW
 import json
 from toga import validators
 from subprocess import call
+import os
+import os.path
+
+
 
 class AppleCardtoMintImporter(toga.App):	
 		def action_open_file_dialog(self, widget):
@@ -39,9 +43,18 @@ class AppleCardtoMintImporter(toga.App):
 				'csv_name': self.csv_name,
 			})
 
-			with open('changes.txt', 'w+') as outfile:
+			with open(os.path.join(os.path.dirname(__file__), 'changes.txt'), 'w+') as outfile:
 				json.dump(data, outfile)
-			call(["python", "import_script.py"])
+
+			with open(os.path.join(os.path.dirname(__file__), 'changes.txt')) as json_file:
+				data = json.load(json_file)
+				for p in data['changes']:
+					cook = p['cookie']
+					toke = p['token']
+					CSV = p['csv_name']
+
+			self.label.text = CSV + cook + toke
+			#call(["python", "import_script.py"])
 
 		def startup(self):
 			main_box = toga.Box(style=Pack(direction=COLUMN))
