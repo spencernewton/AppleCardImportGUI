@@ -3,7 +3,7 @@ import datetime
 import os
 import random
 import time
-#import urllib.parse
+import urllib.parse
 import urllib # makes it compatible with GUI
 #import urlparse
 import json
@@ -61,7 +61,7 @@ for row in csv_object:
 
 
 	#merchant = urllib.parse.quote(merchant)
-	merchant = urllib.pathname2url(merchant)
+	merchant = urllib.parse.quote(merchant)
 
 	# Category ID Mapping Function 
 	def category_id_switch(import_category):
@@ -363,7 +363,7 @@ for row in csv_object:
 	# Set mint category name by looking up name in ID map 
 	category = catName
 	#category = urllib.parse.quote(category)
-	category = urllib.pathname2url(category)
+	category = urllib.parse.quote(category)
 
 	"""
 	#################################
