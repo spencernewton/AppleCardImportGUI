@@ -5,7 +5,7 @@ import random
 import time
 #import urllib.parse
 import urllib # makes it compatible with GUI
-import urlparse
+#import urlparse
 import json
 
 with open('changes.txt') as json_file:

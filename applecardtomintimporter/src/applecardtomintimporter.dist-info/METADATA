@@ -1,0 +1,10 @@
+Metadata-Version: 2.1
+Briefcase-Version: 0.3.5
+Name: applecardtomintimporter
+Formal-Name: Apple Card to Mint Importer
+App-ID: com.example.applecardtomintimporter
+Version: 0.0.1
+Home-page: https://example.com/applecardtomintimporter
+Author: Spencer Newton
+Author-email: spencer@example.com
+Summary: Import your CSV Apple Card statements to Mint to properly track transactions!
