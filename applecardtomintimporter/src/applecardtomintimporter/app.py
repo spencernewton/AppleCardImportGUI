@@ -41,7 +41,7 @@ class AppleCardtoMintImporter(toga.App):
 
 			with open('changes.txt', 'w+') as outfile:
 				json.dump(data, outfile)
-			#call(["python", "import_script.py"])
+			call(["python", "import_script.py"])
 
 		def startup(self):
 			main_box = toga.Box(style=Pack(direction=COLUMN))
