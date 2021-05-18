@@ -2,13 +2,16 @@
 Import your CSV Apple Card statements to Mint to properly track transactions!
 """
 import toga
+from toga import style
 from toga.style import Pack
-from toga.style.pack import COLUMN, ROW
+from toga.style.pack import COLUMN, ROW, TEXT_ALIGN_CHOICES
 import json
 from toga import validators
 from subprocess import call
 import os
 import os.path
+
+from travertino.constants import CENTER
 
 
 
@@ -55,21 +58,123 @@ class AppleCardtoMintImporter(toga.App):
 
 			self.label.text = CSV + cook + toke
 			#call(["python", "import_script.py"])
+
+		def set_variables(self,widget):
+			account_no = self.account_input.value
+			tag1 = self.tag1_input.value
+			tag2= self.tag2_input.value
+			tag3 = self.tag3_input.value
+
+			data = {}
+			data['changes'] = []
+			data['changes'].append({
+				'account': self.account_input.value,
+				'tag1': self.tag1_input.value,
+				'tag2': self.tag2_input.value,
+				'tag3': self.tag3_input.value
+			})
+
+			with open(os.path.join(os.path.dirname(__file__), 'perm.txt'), 'w+') as outfile:
+				json.dump(data, outfile)
+
+			self.label.text = "Info has been updated! Please close this window to continue."
 		
 		def perm_variables(self,widget):
-			main_box = toga.Box(style=Pack(direction=COLUMN))
-			hello = toga.Label('Lorem Ipsum')
-			main_box.add(hello)
+			main_box = toga.Box(style=Pack(direction=COLUMN, flex=1))
+			info = toga.Label(
+				"Please add the requested info from Mint after getting info from the transaction event in your browser.\n" + 
+				"If you have previously entered this information, you shouldn't have to do it again,\nbut if you have issues running the program, try updating ALL fields again!", style=Pack(text_align=CENTER))
+			main_box.add(info)
 			self.perm_window = toga.Window(title="Setting Mint Account Data")
 			self.perm_window.content = main_box
 			self.perm_window.show()
-			btnClose = toga.Button(
-				'Close this window',
-				on_press=self.perm_window.show(),
-				style=Pack(padding=5)
 
+			account_label = toga.Label(
+				'Account #: ',
+				style=Pack(padding=(0))
 			)
-			main_box.add(btnClose)
+
+			self.account_input = toga.TextInput(
+				style=Pack(flex=1),
+				placeholder='Can be found in the POST request form body in your browser devtools',
+				validators=[
+					validators.MinLength(1)
+					]
+				)
+
+			account_box = toga.Box(style=Pack(direction=ROW, padding=5))
+			account_box.add(account_label)
+			account_box.add(self.account_input)
+
+			tag1_label = toga.Label(
+				'Tag 1: ',
+				style=Pack(padding=(0))
+			)
+			self.tag1_input = toga.TextInput(
+				style=Pack(flex=1),
+				placeholder='in form of tagXXXXXXX',
+				validators=[
+					validators.MinLength(1)
+					]
+				)
+
+			tag2_label = toga.Label(
+				'Tag 2: ',
+				style=Pack(padding=(0))
+			)
+			self.tag2_input = toga.TextInput(
+				style=Pack(flex=1),
+				placeholder='in form of tagXXXXXXX',
+				validators=[
+					validators.MinLength(1)
+					]
+				)
+
+			tag3_label = toga.Label(
+				'Tag 3: ',
+				style=Pack(padding=(0))
+			)
+			self.tag3_input = toga.TextInput(
+				style=Pack(flex=1),
+				placeholder='in form of tagXXXXXXX',
+				validators=[
+					validators.MinLength(1)
+					]
+				)
+
+			tag1_box = toga.Box(style=Pack(direction=ROW, padding=5))
+			tag1_box.add(tag1_label)
+			tag1_box.add(self.tag1_input)
+			tag2_box = toga.Box(style=Pack(direction=ROW, padding=5))
+			tag2_box.add(tag2_label)
+			tag2_box.add(self.tag2_input)
+			tag3_box = toga.Box(style=Pack(direction=ROW, padding=5))
+			tag3_box.add(tag3_label)
+			tag3_box.add(self.tag3_input)
+
+			main_box.add(account_box)
+			main_box.add(tag1_box)
+			main_box.add(tag2_box)
+			main_box.add(tag3_box)
+
+			#btnClose = toga.Button(
+			#	'Close this window',
+			#	on_press=self.perm_window.show(),
+			#	style=Pack(padding=5)
+
+			#)
+			#main_box.add(btnClose)
+
+			update_info_btn = toga.Button(
+				'Save Info',
+				on_press=self.set_variables,
+				style=Pack(padding=5)
+			)
+
+			main_box.add(update_info_btn)
+
+			self.label = toga.Label('', style=Pack(padding=(0), text_align=CENTER))
+			main_box.add(self.label)
 
 		def startup(self):
 			main_box = toga.Box(style=Pack(direction=COLUMN))
