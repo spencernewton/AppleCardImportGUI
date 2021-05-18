@@ -15,6 +15,14 @@ with open('changes.txt') as json_file:
         token = p['token']
         csv_name = p['csv_name']
 
+with open('perm.txt') as json_file:
+    data = json.load(json_file)
+    for p in data['permanent_vars']:
+        account = p['account']
+	tag1 = p['tag1']
+	tag2 = p['tag2']
+	tag3 = p['tag3']
+
 
 # csv_name = 'import.csv' # name of csv you you want import to mint [string.csv]
 verbose_output = 1 # should verbose messages be printed [0,1] 
@@ -24,10 +32,10 @@ max_wait = 2 # max wait time in seconds between requests, int[0-n]
 
 
 
-account = 'XXXXXXX' # grab from POST request form body in devtools
-tag1 = 'tagXXXXXX' # in form of tagXXXXXXX
-tag2 = 'tagXXXXXXX' # in form of tagXXXXXXX
-tag3 = 'tagXXXXXXX' # in form of tagXXXXXXX
+#account = 'XXXXXXX' # grab from POST request form body in devtools
+#tag1 = 'tagXXXXXX' # in form of tagXXXXXXX
+#tag2 = 'tagXXXXXXX' # in form of tagXXXXXXX
+#tag3 = 'tagXXXXXXX' # in form of tagXXXXXXX
 #cookie = input("Copy and paste cookie here from POST request header in devtools:") # grab from POST request header in devtools
 referrer = 'https://mint.intuit.com/transaction.event' # grab from POST request header in devtools
 #token = input("Copy and paste token here from POST request form body in devtools:") # grab from POST request form body in devtools
