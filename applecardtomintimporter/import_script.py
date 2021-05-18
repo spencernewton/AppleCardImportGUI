@@ -8,16 +8,16 @@ import urllib # makes it compatible with GUI
 #import urlparse
 import json
 
-with open('changes.txt') as json_file:
-    data = json.load(json_file)
-    for p in data['changes']:
+with open('changes.txt') as change_file:
+    change_data = json.load(change_file)
+    for p in change_data['changes']:
         cookie = p['cookie']
         token = p['token']
         csv_name = p['csv_name']
 
-with open('perm.txt') as json_file:
-    data = json.load(json_file)
-    for p in data['permanent_vars']:
+with open('perm.txt') as perm_file:
+    perm_data = json.load(perm_file)
+    for p in perm_data['permanent_vars']:
         account = p['account']
 	tag1 = p['tag1']
 	tag2 = p['tag2']
