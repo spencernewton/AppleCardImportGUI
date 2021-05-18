@@ -66,8 +66,8 @@ class AppleCardtoMintImporter(toga.App):
 			tag3 = self.tag3_input.value
 
 			data = {}
-			data['changes'] = []
-			data['changes'].append({
+			data['permanent_vars'] = []
+			data['permanent_vars'].append({
 				'account': self.account_input.value,
 				'tag1': self.tag1_input.value,
 				'tag2': self.tag2_input.value,
