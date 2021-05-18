@@ -31,13 +31,6 @@ class AppleCardtoMintImporter(toga.App):
 				self.csv_name = fname
 
 		def import_statement(self, widget):
-			cookie = self.cookie_input.value
-			print("Cookie is " + cookie)
-			token = self.token_input.value
-			print("Token is " + token)
-			fname = self.csv_name
-			print("File is " + fname)
-
 			data = {}
 			data['changes'] = []
 			data['changes'].append({
@@ -60,11 +53,6 @@ class AppleCardtoMintImporter(toga.App):
 			#call(["python", "import_script.py"])
 
 		def set_variables(self,widget):
-			account_no = self.account_input.value
-			tag1 = self.tag1_input.value
-			tag2= self.tag2_input.value
-			tag3 = self.tag3_input.value
-
 			data = {}
 			data['permanent_vars'] = []
 			data['permanent_vars'].append({
@@ -85,7 +73,10 @@ class AppleCardtoMintImporter(toga.App):
 				"Please add the requested info from Mint after getting info from the transaction event in your browser.\n" + 
 				"If you have previously entered this information, you shouldn't have to do it again,\nbut if you have issues running the program, try updating ALL fields again!", style=Pack(text_align=CENTER))
 			main_box.add(info)
-			self.perm_window = toga.Window(title="Setting Mint Account Data")
+			self.perm_window = toga.Window(
+				title="Setting Mint Account Data",
+				size=(500, 250),
+				resizeable=False,)
 			self.perm_window.content = main_box
 			self.perm_window.show()
 
@@ -112,7 +103,7 @@ class AppleCardtoMintImporter(toga.App):
 			)
 			self.tag1_input = toga.TextInput(
 				style=Pack(flex=1),
-				placeholder='in form of tagXXXXXXX',
+				placeholder='tagXXXXXXX',
 				validators=[
 					validators.MinLength(1)
 					]
@@ -124,7 +115,7 @@ class AppleCardtoMintImporter(toga.App):
 			)
 			self.tag2_input = toga.TextInput(
 				style=Pack(flex=1),
-				placeholder='in form of tagXXXXXXX',
+				placeholder='tagXXXXXXX',
 				validators=[
 					validators.MinLength(1)
 					]
@@ -136,7 +127,7 @@ class AppleCardtoMintImporter(toga.App):
 			)
 			self.tag3_input = toga.TextInput(
 				style=Pack(flex=1),
-				placeholder='in form of tagXXXXXXX',
+				placeholder='tagXXXXXXX',
 				validators=[
 					validators.MinLength(1)
 					]
@@ -242,7 +233,11 @@ class AppleCardtoMintImporter(toga.App):
 			main_box.add(open_file)
 			main_box.add(import_statement_button)
 
-			self.main_window = toga.MainWindow(title=self.formal_name)
+			self.main_window = toga.MainWindow(
+				title="Apple Card Mint Importer",
+				size=(500, 220),
+				resizeable=False,
+				minimizable=False)
 			self.main_window.content = main_box
 			self.main_window.show()
 
