@@ -138,4 +138,4 @@ testp.py
 setup.py
 changes.txt
 /Ignore
-applecardtomintimporter/src/applecardtomintimporter/app.py
+applecardtomintimporter/src/applecardtomintimporter/perm.txt
