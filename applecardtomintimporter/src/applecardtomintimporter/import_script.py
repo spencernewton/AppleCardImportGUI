@@ -8,20 +8,20 @@ import urllib # makes it compatible with GUI
 #import urlparse
 import json
 
-with open('changes.txt') as change_file:
+with open(os.path.join(os.path.dirname(__file__),'changes.txt')) as change_file:
     change_data = json.load(change_file)
     for p in change_data['changes']:
         cookie = p['cookie']
         token = p['token']
         csv_name = p['csv_name']
 
-with open('perm.txt') as perm_file:
+with open(os.path.join(os.path.dirname(__file__),'perm.txt')) as perm_file:
     perm_data = json.load(perm_file)
     for p in perm_data['permanent_vars']:
         account = p['account']
-	tag1 = p['tag1']
-	tag2 = p['tag2']
-	tag3 = p['tag3']
+        tag1 = p['tag1']
+        tag2 = p['tag2']
+        tag3 = p['tag3']
 
 
 # csv_name = 'import.csv' # name of csv you you want import to mint [string.csv]
