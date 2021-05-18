@@ -55,9 +55,32 @@ class AppleCardtoMintImporter(toga.App):
 
 			self.label.text = CSV + cook + toke
 			#call(["python", "import_script.py"])
+		
+		def perm_variables(self,widget):
+			main_box = toga.Box(style=Pack(direction=COLUMN))
+			hello = toga.Label('Lorem Ipsum')
+			main_box.add(hello)
+			self.perm_window = toga.Window(title="Setting Mint Account Data")
+			self.perm_window.content = main_box
+			self.perm_window.show()
+			btnClose = toga.Button(
+				'Close this window',
+				on_press=self.perm_window.show(),
+				style=Pack(padding=5)
+
+			)
+			main_box.add(btnClose)
 
 		def startup(self):
 			main_box = toga.Box(style=Pack(direction=COLUMN))
+
+			set_account_tags = toga.Button(
+			'Initial Set Up', on_press=self.perm_variables, style=Pack(direction=ROW, padding=5))
+			#self.main_window = toga.MainWindow(title=self.formal_name)
+			#self.main_window.content = main_box
+			#self.main_window.show()
+			main_box.add(set_account_tags)
+
 
 			# Input of Mint cookie and token here
 			cookie_label = toga.Label(
@@ -107,6 +130,7 @@ class AppleCardtoMintImporter(toga.App):
 
 			self.label = toga.Label('Choose a CSV file to import!', style=Pack(padding=(0)))
 
+			main_box.add(set_account_tags)
 			main_box.add(cookie_box)
 			main_box.add(token_box)
 			main_box.add(self.label)
