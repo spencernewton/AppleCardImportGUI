@@ -11,11 +11,45 @@ from subprocess import call
 import os
 import os.path
 
+import csv
+import datetime
+import os
+import random
+import time
+import urllib.parse
+import urllib # makes it compatible with GUI
+#import urlparse
+import json
+
 from travertino.constants import CENTER
 
 
 
 class AppleCardtoMintImporter(toga.App):
+	#def callback(sender):
+	#	print("Command activated")
+
+	#def build(app):
+	#	...
+	#	stuff_group = Group('Stuff', order=40)
+
+	#	cmd1 = toga.Command(
+	#		callback,
+	#		label='Example command',
+	#		tooltip='Tells you when it has been activated',
+	#		shortcut='c',
+	#		icon='icons/pretty.png',
+	#		group=stuff_group,
+	#		section=0
+	#	)
+	#	#cmd2 = toga.Command(
+	#	#	...
+	#	#)
+	#	#...
+
+	#	app.commands.add(cmd1)
+	#	app.main_window.toolbar.add(cmd1)
+
 	def action_open_file_dialog(self, widget):
 			try:
 				fname = self.main_window.open_file_dialog(
@@ -42,6 +76,8 @@ class AppleCardtoMintImporter(toga.App):
 		with open(os.path.join(os.path.dirname(__file__), 'changes.txt'), 'w+') as outfile:
 			json.dump(data, outfile)
 
+		self.label.text = "IT NOT WORKING"
+
 		with open(os.path.join(os.path.dirname(__file__), 'changes.txt')) as json_file:
 			data = json.load(json_file)
 			for p in data['changes']:
@@ -49,8 +85,11 @@ class AppleCardtoMintImporter(toga.App):
 				toke = p['token']
 				CSV = p['csv_name']
 
-		self.label.text = CSV + cook + toke
-		#call(["python", "import_script.py"])
+		self.label.text = CSV
+		
+		#call(["python", os.path.dirname("src/applecardtomintimporter/import_script.py")])
+		os.system("python src/applecardtomintimporter/import_script.py")  
+		self.label.text = "All done!"
 
 	def set_variables(self,widget):
 		data = {}
@@ -184,9 +223,12 @@ class AppleCardtoMintImporter(toga.App):
 			style=Pack(padding=(0))
 		)
 
-		self.cookie_input = toga.MultilineTextInput(
+		self.cookie_input = toga.TextInput(
 			style=Pack(flex=1),
 			placeholder='Enter cookie here',
+			validators=[
+				validators.MinLength(1)
+				]
 			)
 
 		cookie_box = toga.Box(style=Pack(direction=ROW, padding=5))
