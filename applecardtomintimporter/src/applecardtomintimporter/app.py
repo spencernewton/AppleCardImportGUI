@@ -184,12 +184,9 @@ class AppleCardtoMintImporter(toga.App):
 			style=Pack(padding=(0))
 		)
 
-		self.cookie_input = toga.TextInput(
+		self.cookie_input = toga.MultilineTextInput(
 			style=Pack(flex=1),
 			placeholder='Enter cookie here',
-			validators=[
-				validators.MinLength(1)
-				]
 			)
 
 		cookie_box = toga.Box(style=Pack(direction=ROW, padding=5))
