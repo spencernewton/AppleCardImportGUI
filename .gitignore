@@ -131,8 +131,6 @@ dmypy.json
 
 # Other
 .DS_Store
-.csv
-import.csv
 scratch.py
 testp.py
 setup.py
